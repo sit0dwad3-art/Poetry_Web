@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Versos Vivos | Poesía & Eventos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Cargar componentes comunes (nav, social bar, modal) -->
+  <div id="common-components"></div>
+
+  <!-- Cargar páginas -->
+  <div id="page-container">
+    <!-- Las páginas se cargarán aquí -->
+  </div>
+
+  <script>
+    // Función para cargar HTML desde archivos externos
+    async function loadHTML(url, elementId) {
+      try {
+        const response = await fetch(url);
+        const html = await response.text();
+        document.getElementById(elementId).innerHTML = html;
+      } catch (error) {
+        console.error(`Error cargando ${url}:`, error);
+      }
+    }
+
+    // Cargar todos los componentes cuando la página se carga
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Cargar componentes comunes
+      await loadHTML('components/common.html', 'common-components');
+      
+      // Cargar todas las páginas
+      const pageContainer = document.getElementById('page-container');
+      await Promise.all([
+        loadHTML('pages/home.html', 'page-container'),
+        loadHTML('pages/events.html', 'page-container'),
+        loadHTML('pages/community.html', 'page-container')
+      ]);
+      
+      // Cargar y ejecutar el script principal
+      const script = document.createElement('script');
+      script.src = 'js/main.js';
+      document.body.appendChild(script);
+    });
+  </script>
+</body>
+</html>
