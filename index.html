@@ -3,59 +3,236 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Versos Vivos | Poesía & Eventos</title>
-  <link rel="stylesheet" href="css/styles.css">
 
-  <!-- ✅ EmailJS SDK — debe estar en el HEAD, antes de todo -->
+  <!-- ===== SEO básico ===== -->
+  <title>Léolo Edición | Poesía & Eventos</title>
+  <meta name="description" content="Léolo Edición — Espacio literario de poesía, eventos y comunidad. Descubre voces, asiste a veladas y comparte tu escritura."/>
+  <meta name="theme-color" content="#f7f3ec"/>
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Léolo Edición | Poesía & Eventos"/>
+  <meta property="og:description" content="Espacio literario de poesía, eventos y comunidad."/>
+  <meta property="og:type"        content="website"/>
+  <meta property="og:locale"      content="es_ES"/>
+  <!-- FIX 1: og:url e og:image añadidos (buena práctica SEO) -->
+  <meta property="og:url"         content="https://leolo-edicion.es"/>
+  <meta property="og:image"       content="https://leolo-edicion.es/img/og-cover.jpg"/>
+
+  <!-- Favicon mínimo SVG inline -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"/>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css"/>
+
+  <!-- ✅ EmailJS SDK — debe cargarse en el HEAD, antes de events.js -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- FIX 2: loader-bar añadida aquí para que exista en el DOM
+       antes de que hideLoader() se ejecute -->
+  <style>
+    #leolo-loader {
+      position: fixed;
+      inset: 0;
+      background: #f7f3ec;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      gap: 20px;
+    }
+
+    .loader-logo {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 4rem;
+      color: #2a2a2a;
+      animation: loaderPulse 1.6s ease-in-out infinite;
+    }
+
+    .loader-bar {
+      width: 120px;
+      height: 1px;
+      background: rgba(42,42,42,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: #b8965a;
+      animation: loaderSlide 1.4s ease-in-out infinite;
+    }
+
+    @keyframes loaderPulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.45; }
+    }
+
+    @keyframes loaderSlide {
+      0%   { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* FIX 3: ocultar todas las páginas por defecto
+       antes de que main.js las muestre */
+    .page {
+      display: none;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .page.active {
+      display: block;
+    }
+  </style>
 </head>
+
 <body>
 
-  <!-- Componentes comunes (nav, social bar, modal) -->
+  <!-- ===== LOADER ===== -->
+  <div id="leolo-loader" aria-hidden="true">
+    <span class="loader-logo">Léolo</span>
+    <!-- FIX 4: loader-bar estaba en el CSS pero no en el DOM -->
+    <div class="loader-bar" aria-hidden="true"></div>
+  </div>
+
+  <!-- ===== Componentes comunes: nav + social sidebar + modal + footer ===== -->
   <div id="common-components"></div>
 
-  <!-- Contenedor de páginas -->
-  <div id="page-container"></div>
+  <!-- ===== Contenedor de páginas ===== -->
+  <main id="page-container" role="main" aria-live="polite" aria-atomic="false"></main>
 
+  <!-- ===== SCRIPTS ===== -->
   <script>
+    /* ─────────────────────────────────────────────
+       loadHTML — inyecta HTML de un archivo parcial
+       en el contenedor indicado.
+       append = true → concatena en vez de reemplazar
+    ───────────────────────────────────────────── */
     async function loadHTML(url, containerId, append = false) {
       try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status} al cargar ${url}`);
         const html = await response.text();
-        const el = document.getElementById(containerId);
+        const el   = document.getElementById(containerId);
+        if (!el) throw new Error(`Contenedor #${containerId} no encontrado`);
         if (append) {
           el.innerHTML += html;
         } else {
           el.innerHTML = html;
         }
       } catch (error) {
-        console.error(`Error cargando ${url}:`, error);
+        console.error(`❌ loadHTML(${url}):`, error);
       }
     }
 
+    /* ─────────────────────────────────────────────
+       loadScript — carga un .js de forma dinámica
+       y devuelve una Promise que resuelve al cargar.
+    ───────────────────────────────────────────── */
     function loadScript(src) {
       return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve();
+          return;
+        }
+        const script   = document.createElement('script');
+        script.src     = src;
         script.onload  = resolve;
-        script.onerror = reject;
+        script.onerror = () => reject(new Error(`❌ Error cargando script: ${src}`));
         document.body.appendChild(script);
       });
     }
 
+    /* ─────────────────────────────────────────────
+       showLoader / hideLoader
+    ───────────────────────────────────────────── */
+    function showLoader() {
+      const loader = document.getElementById('leolo-loader');
+      if (loader) {
+        loader.style.display  = 'flex';
+        loader.style.opacity  = '1';
+        loader.style.transition = '';
+      }
+    }
+
+    function hideLoader() {
+      const loader = document.getElementById('leolo-loader');
+      if (!loader) return;
+      loader.style.opacity    = '0';
+      loader.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 520);
+    }
+
+    /* ─────────────────────────────────────────────
+       INIT — secuencia de carga
+       Orden crítico:
+         1. HTML (common + páginas)
+         2. events.js  → define openModal, closeModal, submitRegistration
+         3. main.js    → usa openModal / closeModal de events.js
+    ───────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', async () => {
-      // 1. Cargar HTML
-      await loadHTML('components/common.html', 'common-components');
-      await loadHTML('pages/home.html',      'page-container', true);
-      await loadHTML('pages/events.html',    'page-container', true);
-      await loadHTML('pages/community.html', 'page-container', true);
+      showLoader();
 
-      // 2. ✅ Cargar events.js PRIMERO (define openModal, closeModal, submitRegistration)
-      await loadScript('js/events.js');
+      try {
+        // ── 1. Componentes comunes (nav, social sidebar, modal, footer) ──
+        await loadHTML('components/common.html', 'common-components');
 
-      // 3. ✅ Cargar main.js DESPUÉS (usa openModal/closeModal de events.js)
-      await loadScript('js/main.js');
+        // ── 2. Páginas ──
+        await loadHTML('pages/home.html',      'page-container', true);
+        await loadHTML('pages/events.html',    'page-container', true);
+        await loadHTML('pages/community.html', 'page-container', true);
+
+        // ── 3. events.js PRIMERO ──
+        await loadScript('js/events.js');
+
+        // ── 4. main.js DESPUÉS ──
+        await loadScript('js/main.js');
+
+        // ── 5. Mostrar página inicial ──
+        if (typeof showPage === 'function') {
+          showPage('page1');
+        }
+
+        // FIX 5: anunciar al lector de pantalla que la app está lista
+        const main = document.getElementById('page-container');
+        if (main) main.setAttribute('aria-busy', 'false');
+
+      } catch (err) {
+        console.error('❌ Error en la inicialización:', err);
+        // FIX 6: mostrar mensaje de error visible si la carga falla
+        document.body.innerHTML += `
+          <div style="position:fixed;inset:0;display:flex;align-items:center;
+            justify-content:center;background:#f7f3ec;z-index:99998;
+            font-family:Inter,sans-serif;font-size:0.9rem;color:#2a2a2a;
+            flex-direction:column;gap:12px;text-align:center;padding:24px;">
+            <span style="font-size:2rem">✦</span>
+            <strong>Léolo Edición</strong>
+            <p style="color:#888;font-weight:300">
+              Algo salió mal al cargar la página.<br>
+              Por favor, recarga o inténtalo más tarde.
+            </p>
+            <button onclick="location.reload()"
+              style="padding:10px 24px;border:1px solid #b8965a;
+              background:transparent;color:#b8965a;cursor:pointer;
+              font-family:Inter,sans-serif;letter-spacing:1px;font-size:0.75rem">
+              RECARGAR
+            </button>
+          </div>`;
+      } finally {
+        hideLoader();
+      }
     });
   </script>
 

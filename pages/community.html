@@ -1,92 +1,147 @@
 <!-- ========== PAGE 3: COMMUNITY ========== -->
 <div id="page3" class="page">
-  <div class="community-hero">
+
+  <!-- ── HERO ── -->
+  <header class="community-hero" aria-label="Cabecera comunidad">
+    <p class="section-eyebrow">✦ Voces reales ✦</p>
     <h1>La <span>comunidad</span> habla</h1>
-    <p>Vivencias reales de personas que estuvieron ahí. Cada palabra, un recuerdo compartido.</p>
-  </div>
+    <p>Vivencias reales de personas que estuvieron ahí.<br>Cada palabra, un recuerdo compartido.</p>
+  </header>
 
   <div class="community-container">
 
-    <!-- WRITE -->
-    <div class="write-section">
+    <!-- ── WRITE ── -->
+    <section class="write-section" aria-label="Comparte tu experiencia">
       <h3>✍️ Comparte tu experiencia</h3>
       <div class="write-form">
         <div class="form-row">
-          <input class="form-input" type="text" placeholder="Tu nombre (o anónimo)" />
-          <input class="form-input" type="text" placeholder="¿A qué evento asististe?" />
+          <input
+            class="form-input"
+            type="text"
+            placeholder="Tu nombre (o anónimo)"
+            aria-label="Tu nombre"
+          />
+          <input
+            class="form-input"
+            type="text"
+            placeholder="¿A qué evento asististe?"
+            aria-label="Evento al que asististe"
+          />
         </div>
-        <textarea class="form-textarea" rows="4" placeholder="Cuéntanos cómo fue... un momento, una sensación, algo que te llevaste a casa..."></textarea>
-        <div>
-          <p style="font-size:0.75rem;color:rgba(224,217,204,0.4);letter-spacing:1px;margin-bottom:12px;text-transform:uppercase;">¿Cómo te sentiste?</p>
-          <div class="emotion-tags" id="emotionTags">
-            <button class="emotion-tag" onclick="toggleEmotion(this)">💫 Inspirado/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)">🥹 Emocionado/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)">🔥 Apasionado/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)">🌊 Reflexivo/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)">🌙 Nostálgico/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)">✨ Transformado/a</button>
+        <textarea
+          class="form-textarea"
+          rows="4"
+          placeholder="Cuéntanos cómo fue... un momento, una sensación, algo que te llevaste a casa..."
+          aria-label="Tu experiencia"
+        ></textarea>
+
+        <div class="emotion-section">
+          <p class="emotion-label">¿Cómo te sentiste?</p>
+          <div class="emotion-tags" id="emotionTags" role="group" aria-label="Etiquetas de emoción">
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">💫 Inspirado/a</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🥹 Emocionado/a</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🔥 Apasionado/a</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🌊 Reflexivo/a</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🌙 Nostálgico/a</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">✨ Transformado/a</button>
           </div>
         </div>
-        <button class="btn-submit" onclick="submitComment()">Publicar experiencia →</button>
-      </div>
-    </div>
 
-    <!-- FILTER + WALL -->
+        <button class="btn-submit" onclick="submitComment()" type="button">
+          Publicar experiencia →
+        </button>
+      </div>
+    </section>
+
+    <!-- ── FILTER + WALL ── -->
     <div class="testimonials-header">
       <h3>Voces de la comunidad</h3>
-      <div class="filter-tags">
-        <button class="filter-tag active">Todos</button>
-        <button class="filter-tag">Amor</button>
-        <button class="filter-tag">Vida</button>
-        <button class="filter-tag">Noche</button>
-        <button class="filter-tag">Identidad</button>
+      <div class="filter-tags" role="group" aria-label="Filtrar testimonios">
+        <button class="filter-tag active" type="button">Todos</button>
+        <button class="filter-tag" type="button">Amor</button>
+        <button class="filter-tag" type="button">Vida</button>
+        <button class="filter-tag" type="button">Noche</button>
+        <button class="filter-tag" type="button">Identidad</button>
       </div>
     </div>
 
-    <div class="testimonials-masonry">
-      <div class="testimonial-card">
-        <div class="t-emotion">💫</div>
+    <div class="testimonials-masonry" role="list" aria-label="Testimonios de la comunidad">
+
+      <article class="testimonial-card" role="listitem">
+        <div class="t-emotion" aria-hidden="true">💫</div>
         <p class="t-text">"Llegué sin saber qué esperar y salí con algo que no sé nombrar todavía. Como si alguien hubiera puesto palabras a lo que yo llevaba años callando."</p>
         <div class="t-author">— Marta G.</div>
         <div class="t-event">Noche de Versos · Madrid</div>
-        <div class="t-tags"><span class="tag tag-amor">Amor</span><span class="tag tag-vida">Vida</span></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="t-emotion">🔥</div>
+        <div class="t-tags">
+          <span class="tag tag-amor">Amor</span>
+          <span class="tag tag-vida">Vida</span>
+        </div>
+      </article>
+
+      <article class="testimonial-card" role="listitem">
+        <div class="t-emotion" aria-hidden="true">🔥</div>
         <p class="t-text">"Cada verso era un golpe suave en el pecho. Me fui a casa y escribí por primera vez en años."</p>
         <div class="t-author">— Anónimo</div>
         <div class="t-event">Palabras de Fuego · Barcelona</div>
-        <div class="t-tags"><span class="tag tag-noche">Pasión</span></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="t-emotion">🌊</div>
+        <div class="t-tags">
+          <span class="tag tag-noche">Pasión</span>
+        </div>
+      </article>
+
+      <article class="testimonial-card" role="listitem">
+        <div class="t-emotion" aria-hidden="true">🌊</div>
         <p class="t-text">"Fui con mi madre. Nos miramos en un momento y las dos teníamos los ojos brillantes. Eso no tiene precio. Eso es lo que hace la poesía."</p>
         <div class="t-author">— Laura P.</div>
         <div class="t-event">Mar de Silencios · Valencia</div>
-        <div class="t-tags"><span class="tag tag-silencio">Silencio</span><span class="tag tag-amor">Amor</span></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="t-emotion">✨</div>
+        <div class="t-tags">
+          <span class="tag tag-silencio">Silencio</span>
+          <span class="tag tag-amor">Amor</span>
+        </div>
+      </article>
+
+      <article class="testimonial-card" role="listitem">
+        <div class="t-emotion" aria-hidden="true">✨</div>
         <p class="t-text">"No soy de poesía, me llevó un amigo. Ahora soy de poesía."</p>
         <div class="t-author">— Rodrigo M.</div>
         <div class="t-event">Constelaciones · Sevilla</div>
-        <div class="t-tags"><span class="tag tag-vida">Vida</span></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="t-emotion">🥹</div>
+        <div class="t-tags">
+          <span class="tag tag-vida">Vida</span>
+        </div>
+      </article>
+
+      <article class="testimonial-card" role="listitem">
+        <div class="t-emotion" aria-hidden="true">🥹</div>
         <p class="t-text">"Hay una forma de leer que te hace sentir que el poema te está mirando a ti. Eso es lo que pasa en estos eventos. Una experiencia que no se olvida."</p>
         <div class="t-author">— Carmen V.</div>
         <div class="t-event">Raíces · Bilbao</div>
-        <div class="t-tags"><span class="tag tag-tierra">Tierra</span><span class="tag tag-vida">Memoria</span></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="t-emotion">🌙</div>
+        <div class="t-tags">
+          <span class="tag tag-tierra">Tierra</span>
+          <span class="tag tag-vida">Memoria</span>
+        </div>
+      </article>
+
+      <article class="testimonial-card" role="listitem">
+        <div class="t-emotion" aria-hidden="true">🌙</div>
         <p class="t-text">"Salí caminando despacio. No quería que se acabara la noche. Esas palabras me acompañaron semanas."</p>
         <div class="t-author">— Iñigo A.</div>
         <div class="t-event">Entre Luces · Granada</div>
-        <div class="t-tags"><span class="tag tag-noche">Noche</span></div>
-      </div>
+        <div class="t-tags">
+          <span class="tag tag-noche">Noche</span>
+        </div>
+      </article>
+
     </div>
+
+    <!-- ── CTA COMUNIDAD ── -->
+    <section class="community-cta" aria-label="Únete a la comunidad">
+      <p class="section-eyebrow">✦ Sé parte de algo real ✦</p>
+      <h2>¿Quieres estar<br><em>en la próxima noche</em>?</h2>
+      <p>Plazas limitadas. Reserva antes de que se agoten.</p>
+      <div class="hero-cta-group">
+        <button class="btn-primary" onclick="showPage('page2')">Ver próximos eventos</button>
+        <button class="btn-outline" onclick="openModal(null)">Reservar plaza ahora</button>
+      </div>
+    </section>
 
   </div>
 </div>

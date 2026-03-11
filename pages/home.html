@@ -1,8 +1,11 @@
 <!-- ========== PAGE 1: LANDING ========== -->
 <div id="page1" class="page active">
-  <div class="hero-particles" id="particles"></div>
 
-  <div class="hero-content">
+  <!-- Partículas de fondo -->
+  <div class="hero-particles" id="particles" aria-hidden="true"></div>
+
+  <!-- ── HERO ── -->
+  <section class="hero-content" aria-label="Presentación principal">
     <p class="hero-eyebrow">✦ Poesía · Emoción · Comunidad ✦</p>
     <h1 class="hero-title">
       Las palabras<br>que <em>te mueven</em>
@@ -15,73 +18,158 @@
       <button class="btn-primary" onclick="showPage('page2')">Ver próximos eventos</button>
       <button class="btn-outline" onclick="showPage('page3')">Leer testimonios</button>
     </div>
-    <div class="hero-quote">
+    <blockquote class="hero-quote">
       <p>"No escribo para ser leído,<br>escribo para que recuerdes<br>que estás vivo."</p>
-      <span>— Nombre del Artista</span>
-    </div>
-  </div>
+      <footer><cite>— Léolo</cite></footer>
+    </blockquote>
+  </section>
 
-  <!-- ABOUT -->
-  <div class="about-section">
-    <div class="about-img-placeholder">🎭</div>
+  <!-- ── ABOUT ── -->
+  <section class="about-section" aria-label="Sobre el artista">
+    <div class="about-img-placeholder" aria-hidden="true">🎭</div>
     <div class="about-text">
       <h2>El <span>arte</span> de<br>contar lo que calla</h2>
       <p>Poeta, presentador y creador de espacios donde la palabra cobra vida. Más de una década construyendo puentes entre el verso y el corazón de las personas.</p>
       <p>Cada evento es una experiencia única: íntima, poderosa y transformadora. Un espacio donde el público no solo escucha, sino que siente.</p>
-      <div class="stats-row">
+      <div class="stats-row" aria-label="Estadísticas">
         <div class="stat">
-          <div class="stat-num">47</div>
+          <div class="stat-num" aria-label="47 eventos">47</div>
           <div class="stat-label">Eventos</div>
         </div>
         <div class="stat">
-          <div class="stat-num">2.3K</div>
+          <div class="stat-num" aria-label="2300 asistentes">2.3K</div>
           <div class="stat-label">Asistentes</div>
         </div>
         <div class="stat">
-          <div class="stat-num">12</div>
+          <div class="stat-num" aria-label="12 ciudades">12</div>
           <div class="stat-label">Ciudades</div>
         </div>
       </div>
+      <div class="about-cta-group">
+        <button class="btn-primary" onclick="showPage('page2')">Próximos eventos →</button>
+        <button class="btn-outline" onclick="openModal(null)">Reservar plaza</button>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- GALLERY -->
-  <div class="gallery-section">
+  <!-- ── VOICES / POETS ── -->
+  <section class="voices-section" aria-label="Voces invitadas">
     <div class="section-header">
+      <p class="section-eyebrow">✦ Artistas invitados ✦</p>
+      <h2>Voces que comparten el escenario</h2>
+    </div>
+    <div class="voices-grid">
+      <div class="poet-card">
+        <div class="poet-avatar" aria-hidden="true">🌿</div>
+        <h4>Ana Vidal</h4>
+        <p>Poesía del cuerpo y la memoria</p>
+        <div class="poet-tags">
+          <span class="tag tag-amor">Amor</span>
+          <span class="tag tag-tierra">Tierra</span>
+        </div>
+      </div>
+      <div class="poet-card">
+        <div class="poet-avatar" aria-hidden="true">🔥</div>
+        <h4>Marcos Riel</h4>
+        <p>Slam poetry e identidad urbana</p>
+        <div class="poet-tags">
+          <span class="tag tag-noche">Pasión</span>
+          <span class="tag tag-vida">Vida</span>
+        </div>
+      </div>
+      <div class="poet-card">
+        <div class="poet-avatar" aria-hidden="true">🌊</div>
+        <h4>Sofía Leal</h4>
+        <p>Verso libre y paisajes interiores</p>
+        <div class="poet-tags">
+          <span class="tag tag-silencio">Silencio</span>
+          <span class="tag tag-vida">Introspección</span>
+        </div>
+      </div>
+      <div class="poet-card">
+        <div class="poet-avatar" aria-hidden="true">💫</div>
+        <h4>Iván Mora</h4>
+        <p>Poesía visual y performance</p>
+        <div class="poet-tags">
+          <span class="tag tag-amor">Sueños</span>
+          <span class="tag tag-noche">Noche</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ── -->
+  <section class="gallery-section" aria-label="Galería de eventos pasados">
+    <div class="section-header">
+      <p class="section-eyebrow">✦ Una selección de noches que no se olvidan ✦</p>
       <h2>Eventos que dejaron huella</h2>
-      <p>✦ Una selección de noches que no se olvidan ✦</p>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-card" data-emoji="🌙">
+      <article class="gallery-card" data-emoji="🌙">
         <span class="gallery-tag">Amor</span>
         <h4>Noche de Versos</h4>
         <span>Madrid · Feb 2025</span>
-      </div>
-      <div class="gallery-card" data-emoji="🔥">
+      </article>
+      <article class="gallery-card" data-emoji="🔥">
         <span class="gallery-tag">Identidad</span>
         <h4>Palabras de Fuego</h4>
         <span>Barcelona · Nov 2024</span>
-      </div>
-      <div class="gallery-card" data-emoji="🌊">
+      </article>
+      <article class="gallery-card" data-emoji="🌊">
         <span class="gallery-tag">Memoria</span>
         <h4>Mar de Silencios</h4>
         <span>Valencia · Sep 2024</span>
-      </div>
-      <div class="gallery-card" data-emoji="⭐">
+      </article>
+      <article class="gallery-card" data-emoji="⭐">
         <span class="gallery-tag">Vida</span>
         <h4>Constelaciones</h4>
         <span>Sevilla · Jun 2024</span>
-      </div>
-      <div class="gallery-card" data-emoji="🌿">
+      </article>
+      <article class="gallery-card" data-emoji="🌿">
         <span class="gallery-tag">Naturaleza</span>
         <h4>Raíces</h4>
         <span>Bilbao · Mar 2024</span>
-      </div>
-      <div class="gallery-card" data-emoji="💫">
+      </article>
+      <article class="gallery-card" data-emoji="💫">
         <span class="gallery-tag">Sueños</span>
         <h4>Entre Luces</h4>
         <span>Granada · Ene 2024</span>
-      </div>
+      </article>
     </div>
-  </div>
+  </section>
+
+  <!-- ── STATS SECTION ── -->
+  <section class="stats-section" aria-label="Estadísticas generales">
+    <div class="stat-block">
+      <div class="stat-number">47</div>
+      <div class="stat-label">Veladas realizadas</div>
+    </div>
+    <div class="stat-divider" aria-hidden="true">✦</div>
+    <div class="stat-block">
+      <div class="stat-number">2300</div>
+      <div class="stat-label">Personas emocionadas</div>
+    </div>
+    <div class="stat-divider" aria-hidden="true">✦</div>
+    <div class="stat-block">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Ciudades recorridas</div>
+    </div>
+    <div class="stat-divider" aria-hidden="true">✦</div>
+    <div class="stat-block">
+      <div class="stat-number">4.9</div>
+      <div class="stat-label">Valoración media</div>
+    </div>
+  </section>
+
+  <!-- ── CTA FINAL ── -->
+  <section class="cta-section" aria-label="Llamada a la acción">
+    <p class="section-eyebrow">✦ El próximo evento te espera ✦</p>
+    <h2>¿Listo para sentir<br><em>algo real</em>?</h2>
+    <p>Plazas limitadas. Cada velada es única e irrepetible.</p>
+    <div class="hero-cta-group">
+      <button class="btn-primary" onclick="showPage('page2')">Ver próximos eventos</button>
+      <button class="btn-outline" onclick="openModal(null)">Reservar plaza ahora</button>
+    </div>
+  </section>
+
 </div>
