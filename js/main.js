@@ -38,8 +38,8 @@ function showPage(id) {
 
 // ===== CURSOR PERSONALIZADO =====
 function initCursor() {
-  const cursor     = document.getElementById('cursor-dot');
-  const cursorRing = document.getElementById('cursor-ring');
+  const cursor     = document.querySelector('.cursor');           // ✅ usa clase CSS
+  const cursorRing = document.querySelector('.cursor-follower'); // ✅ usa clase CSS
 
   if (!cursor && !cursorRing) return;
 
@@ -66,8 +66,9 @@ function initCursor() {
     mouseY = e.clientY;
 
     if (cursor) {
-      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-      cursor.style.opacity   = '1';
+      cursor.style.left    = mouseX + 'px';  // ✅ left/top en vez de transform
+      cursor.style.top     = mouseY + 'px';
+      cursor.style.opacity = '1';
     }
   });
 
@@ -77,7 +78,8 @@ function initCursor() {
     ringY += (mouseY - ringY) * 0.12;
 
     if (cursorRing) {
-      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      cursorRing.style.left = ringX + 'px';  // ✅ left/top en vez de transform
+      cursorRing.style.top  = ringY + 'px';
     }
 
     requestAnimationFrame(animateRing);
@@ -92,6 +94,18 @@ function initCursor() {
   document.addEventListener('mouseenter', () => {
     if (cursor)     cursor.style.opacity = '1';
     if (cursorRing) cursorRing.style.opacity = '1';
+  });
+
+  // ✅ Efecto hover en links y botones
+  document.querySelectorAll('a, button, [role="button"], .gallery-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor?.classList.add('hover');
+      cursorRing?.classList.add('hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor?.classList.remove('hover');
+      cursorRing?.classList.remove('hover');
+    });
   });
 }
 
@@ -530,7 +544,7 @@ createParticles();
 renderCalendar();
 initFilterTags();
 initScrollReveal();
-initCursor();        // ✅ ahora sí existe como función
+initCursor();
 initNavbar();
 initHamburger();
 initRipple();
