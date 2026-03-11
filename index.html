@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Versos Vivos | Poesía & Eventos</title>
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- ✅ EmailJS SDK — debe estar en el HEAD, antes de todo -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
+
   <!-- Componentes comunes (nav, social bar, modal) -->
   <div id="common-components"></div>
 
-  <!-- Contenedor de páginas: cada página se añade aquí -->
+  <!-- Contenedor de páginas -->
   <div id="page-container"></div>
 
   <script>
@@ -21,7 +25,7 @@
         const html = await response.text();
         const el = document.getElementById(containerId);
         if (append) {
-          el.innerHTML += html;   // ← añade sin borrar
+          el.innerHTML += html;
         } else {
           el.innerHTML = html;
         }
@@ -30,20 +34,30 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      // 1. Cargar componentes comunes
-      await loadHTML('components/common.html', 'common-components');
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload  = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    }
 
-      // 2. Cargar páginas en SECUENCIA (append = true para no sobreescribir)
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Cargar HTML
+      await loadHTML('components/common.html', 'common-components');
       await loadHTML('pages/home.html',      'page-container', true);
       await loadHTML('pages/events.html',    'page-container', true);
       await loadHTML('pages/community.html', 'page-container', true);
 
-      // 3. Ejecutar main.js DESPUÉS de que todo el HTML esté en el DOM
-      const script = document.createElement('script');
-      script.src = 'js/main.js';
-      document.body.appendChild(script);
+      // 2. ✅ Cargar events.js PRIMERO (define openModal, closeModal, submitRegistration)
+      await loadScript('js/events.js');
+
+      // 3. ✅ Cargar main.js DESPUÉS (usa openModal/closeModal de events.js)
+      await loadScript('js/main.js');
     });
   </script>
+
 </body>
 </html>

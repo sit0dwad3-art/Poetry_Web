@@ -1,12 +1,15 @@
 /* ================================================
    LÉOLO EDICIÓN — main.js
-   Corregido + mejorado
+   ⚠️  openModal / closeModal / confirmRegister
+       han sido ELIMINADAS de aquí.
+       Viven en events.js (se carga antes).
 ================================================ */
 
 // ===== PAGE NAVIGATION =====
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -36,12 +39,11 @@ const MONTHS = [
 ];
 const DAYS = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
 
-// FIX: claves corregidas — 0-indexed igual que Date()
-// 0=Ene, 1=Feb, 2=Mar, 3=Abr, 4=May …
+// 0-indexed igual que Date() → 2=Marzo, 3=Abril, 4=Mayo
 const eventDays = {
-  '2025-2': [15, 28],   // Marzo 2025
-  '2025-3': [12],       // Abril 2025
-  '2025-4': [3]         // Mayo 2025
+  '2025-2': [15, 28],
+  '2025-3': [12],
+  '2025-4': [3]
 };
 
 function renderCalendar() {
@@ -83,7 +85,6 @@ function renderCalendar() {
 
     if (evDays.includes(d)) el.classList.add('has-event');
 
-    // FIX: today dinámico — no hardcodeado
     if (
       calYear  === today.getFullYear() &&
       calMonth === today.getMonth()    &&
@@ -92,7 +93,8 @@ function renderCalendar() {
       el.classList.add('today');
     }
 
-    el.onclick = () => { if (evDays.includes(d)) openModal(); };
+    // ✅ openModal(null) → events.js abre el modal sin datos de card
+    el.onclick = () => { if (evDays.includes(d)) openModal(null); };
     grid.appendChild(el);
   }
 }
@@ -104,26 +106,8 @@ function changeMonth(dir) {
   renderCalendar();
 }
 
-// ===== MODAL =====
-function openModal() {
-  // FIX: usa .active (igual que el CSS), no .open
-  const modal = document.getElementById('registerModal');
-  if (modal) modal.classList.add('active');
-}
-
-function closeModal() {
-  const modal = document.getElementById('registerModal');
-  if (modal) modal.classList.remove('active');
-}
-
-function confirmRegister() {
-  closeModal();
-  showToast('¡Perfecto! Tu plaza está reservada. Te llegará un correo de confirmación. ✨');
-}
-
 // ===== EMOTION TAGS =====
 function toggleEmotion(el) {
-  // FIX: usa .active (igual que el CSS), no .selected
   el.classList.toggle('active');
 }
 
@@ -132,9 +116,8 @@ function submitComment() {
   showToast('¡Gracias por compartir tu experiencia! Tu testimonio será revisado pronto. 🙏');
 }
 
-// ===== TOAST — reemplaza alert() =====
+// ===== TOAST =====
 function showToast(msg) {
-  // Elimina toast anterior si existe
   const old = document.getElementById('leolo-toast');
   if (old) old.remove();
 
@@ -142,25 +125,25 @@ function showToast(msg) {
   toast.id = 'leolo-toast';
   toast.textContent = msg;
   Object.assign(toast.style, {
-    position:     'fixed',
-    bottom:       '32px',
-    left:         '50%',
-    transform:    'translateX(-50%)',
-    background:   '#2a2a2a',
-    color:        '#f7f3ec',
-    padding:      '14px 32px',
-    fontSize:     '0.82rem',
-    letterSpacing:'1px',
-    fontFamily:   "'Inter', sans-serif",
-    fontWeight:   '300',
-    zIndex:       '9999',
-    borderLeft:   '3px solid #b8965a',
-    boxShadow:    '0 8px 32px rgba(42,42,42,0.18)',
-    opacity:      '0',
-    transition:   'opacity 0.4s ease',
-    maxWidth:     '480px',
-    textAlign:    'center',
-    lineHeight:   '1.6'
+    position:      'fixed',
+    bottom:        '32px',
+    left:          '50%',
+    transform:     'translateX(-50%)',
+    background:    '#2a2a2a',
+    color:         '#f7f3ec',
+    padding:       '14px 32px',
+    fontSize:      '0.82rem',
+    letterSpacing: '1px',
+    fontFamily:    "'Inter', sans-serif",
+    fontWeight:    '300',
+    zIndex:        '9999',
+    borderLeft:    '3px solid #b8965a',
+    boxShadow:     '0 8px 32px rgba(42,42,42,0.18)',
+    opacity:       '0',
+    transition:    'opacity 0.4s ease',
+    maxWidth:      '480px',
+    textAlign:     'center',
+    lineHeight:    '1.6'
   });
 
   document.body.appendChild(toast);
@@ -171,11 +154,10 @@ function showToast(msg) {
   }, 4000);
 }
 
-// ===== FILTER TAGS — lógica real de filtrado =====
+// ===== FILTER TAGS =====
 function initFilterTags() {
   document.querySelectorAll('.filter-tag').forEach(btn => {
     btn.addEventListener('click', function () {
-      // Marcar activo
       document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
 
@@ -187,8 +169,7 @@ function initFilterTags() {
           card.style.display = '';
           return;
         }
-        // Busca coincidencia en los tags de la card
-        const tags = Array.from(card.querySelectorAll('.tag'))
+        const tags  = Array.from(card.querySelectorAll('.tag'))
           .map(t => t.textContent.trim().toLowerCase());
         const match = tags.some(t => t.includes(filter));
         card.style.display = match ? '' : 'none';
@@ -197,7 +178,7 @@ function initFilterTags() {
   });
 }
 
-// ===== SCROLL REVEAL suave para cards =====
+// ===== SCROLL REVEAL =====
 function initScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -220,17 +201,10 @@ function initScrollReveal() {
 }
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded', function () {
-  createParticles();
-  renderCalendar();
-  initFilterTags();
-  initScrollReveal();
-
-  // Modal — cerrar al clicar el overlay
-  const modal = document.getElementById('registerModal');
-  if (modal) {
-    modal.addEventListener('click', function (e) {
-      if (e.target === this) closeModal();
-    });
-  }
-});
+// ✅ NO hay DOMContentLoaded aquí porque main.js se carga
+//    dinámicamente DESPUÉS de que el DOM ya está listo.
+//    Llamamos las funciones directamente.
+createParticles();
+renderCalendar();
+initFilterTags();
+initScrollReveal();
