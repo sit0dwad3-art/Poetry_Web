@@ -18,7 +18,6 @@ function showPage(id) {
 
   target.classList.add('active');
 
-  // Forzar reflow para que la transición funcione
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       target.style.opacity   = '1';
@@ -27,11 +26,8 @@ function showPage(id) {
   });
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // Re-lanzar scroll reveal en la nueva página
   setTimeout(initScrollReveal, 120);
 
-  // Actualizar nav link activo
   document.querySelectorAll('.nav-links a[onclick]').forEach(a => {
     a.classList.remove('active');
     if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(id)) {
@@ -40,65 +36,64 @@ function showPage(id) {
   });
 }
 
-// ── CURSOR PERSONALIZADO ─────────────────────────────────────
-const cursor     = document.getElementById('cursor-dot');
-const cursorRing = document.getElementById('cursor-ring'); // o como lo llames
+// ===== CURSOR PERSONALIZADO =====
+function initCursor() {
+  const cursor     = document.getElementById('cursor-dot');
+  const cursorRing = document.getElementById('cursor-ring');
 
-// FIX CHROME: forzar cursor:none en TODOS los elementos
-const forceHideCursor = () => {
-  document.documentElement.style.cursor = 'none';
-  document.body.style.cursor = 'none';
+  if (!cursor && !cursorRing) return;
 
-  // Aplicar a todos los elementos existentes
-  document.querySelectorAll('*').forEach(el => {
-    el.style.cursor = 'none';
+  // FIX CHROME: forzar cursor:none en TODOS los elementos
+  const forceHideCursor = () => {
+    document.documentElement.style.cursor = 'none';
+    document.body.style.cursor = 'none';
+    document.querySelectorAll('*').forEach(el => {
+      el.style.cursor = 'none';
+    });
+  };
+
+  forceHideCursor();
+
+  // Aplicar a elementos dinámicos
+  const cursorObserver = new MutationObserver(forceHideCursor);
+  cursorObserver.observe(document.body, { childList: true, subtree: true });
+
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (cursor) {
+      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      cursor.style.opacity   = '1';
+    }
   });
-};
 
-forceHideCursor();
+  // Ring con efecto lag suave
+  const animateRing = () => {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
 
-// También aplicar a elementos que se añadan dinámicamente
-const cursorObserver = new MutationObserver(forceHideCursor);
-cursorObserver.observe(document.body, { childList: true, subtree: true });
+    if (cursorRing) {
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+    }
 
-// Movimiento del cursor
-let mouseX = 0, mouseY = 0;
-let ringX  = 0, ringY  = 0;
+    requestAnimationFrame(animateRing);
+  };
+  animateRing();
 
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  document.addEventListener('mouseleave', () => {
+    if (cursor)     cursor.style.opacity = '0';
+    if (cursorRing) cursorRing.style.opacity = '0';
+  });
 
-  // Dot sigue inmediato
-  if (cursor) {
-    cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    cursor.style.opacity = '1';
-  }
-});
-
-// Ring con efecto lag (suave)
-const animateRing = () => {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-
-  if (cursorRing) {
-    cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
-  }
-
-  requestAnimationFrame(animateRing);
-};
-animateRing();
-
-// Ocultar cuando sale de la ventana
-document.addEventListener('mouseleave', () => {
-  if (cursor)     cursor.style.opacity = '0';
-  if (cursorRing) cursorRing.style.opacity = '0';
-});
-
-document.addEventListener('mouseenter', () => {
-  if (cursor)     cursor.style.opacity = '1';
-  if (cursorRing) cursorRing.style.opacity = '1';
-});
+  document.addEventListener('mouseenter', () => {
+    if (cursor)     cursor.style.opacity = '1';
+    if (cursorRing) cursorRing.style.opacity = '1';
+  });
+}
 
 // ===== NAVBAR SCROLL =====
 function initNavbar() {
@@ -110,7 +105,7 @@ function initNavbar() {
   };
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // estado inicial
+  onScroll();
 }
 
 // ===== HAMBURGER MOBILE =====
@@ -124,7 +119,6 @@ function initHamburger() {
     navLinks.classList.toggle('open');
   });
 
-  // Cerrar al hacer click en un link
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       toggle.classList.remove('open');
@@ -138,7 +132,6 @@ function createParticles() {
   const container = document.getElementById('particles');
   if (!container) return;
 
-  // Limpiar si ya hay partículas
   container.innerHTML = '';
 
   for (let i = 0; i < 30; i++) {
@@ -177,7 +170,6 @@ function renderCalendar() {
   titleEl.textContent = MONTHS[calMonth] + ' ' + calYear;
   grid.innerHTML = '';
 
-  // Cabecera días
   DAYS.forEach(d => {
     const h = document.createElement('div');
     h.className   = 'cal-day-header';
@@ -185,7 +177,6 @@ function renderCalendar() {
     grid.appendChild(h);
   });
 
-  // Offset: semana empieza en Lunes
   const firstDay = new Date(calYear, calMonth, 1).getDay();
   const offset   = firstDay === 0 ? 6 : firstDay - 1;
 
@@ -193,14 +184,12 @@ function renderCalendar() {
   const key         = calYear + '-' + calMonth;
   const evDays      = eventDays[key] || [];
 
-  // Celdas vacías
   for (let i = 0; i < offset; i++) {
     const e = document.createElement('div');
     e.className = 'cal-day empty';
     grid.appendChild(e);
   }
 
-  // Días del mes
   for (let d = 1; d <= daysInMonth; d++) {
     const el = document.createElement('div');
     el.className   = 'cal-day';
@@ -216,7 +205,6 @@ function renderCalendar() {
       el.classList.add('today');
     }
 
-    // openModal(null) → events.js abre el modal sin datos de card
     el.onclick = () => { if (evDays.includes(d)) openModal(null); };
     grid.appendChild(el);
   }
@@ -333,7 +321,6 @@ function initScrollReveal() {
   document.querySelectorAll(
     '.gallery-card, .testimonial-card, .event-card, .poet-card, .analytics-card'
   ).forEach(el => {
-    // Solo aplicar si aún no ha sido revelado
     if (el.style.opacity === '1') return;
     el.style.opacity    = '0';
     el.style.transform  = 'translateY(20px)';
@@ -373,7 +360,6 @@ function initRipple() {
     setTimeout(() => ripple.remove(), 600);
   });
 
-  // Keyframes dinámicos (solo una vez)
   if (!document.getElementById('ripple-style')) {
     const style = document.createElement('style');
     style.id = 'ripple-style';
@@ -401,7 +387,7 @@ function animateCounters() {
 
     function update(now) {
       const progress = Math.min((now - start) / duration, 1);
-      const ease     = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const ease     = 1 - Math.pow(1 - progress, 3);
       el.textContent = Math.round(target * ease) + suffix;
       if (progress < 1) requestAnimationFrame(update);
     }
@@ -410,7 +396,6 @@ function animateCounters() {
   });
 }
 
-// Observar cuando los contadores entran en viewport
 function initCounters() {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -426,24 +411,7 @@ function initCounters() {
   });
 }
 
-// ===== INIT =====
-// main.js se carga dinámicamente DESPUÉS de que el DOM está listo.
-createParticles();
-renderCalendar();
-initFilterTags();
-initScrollReveal();
-initCursor();
-initNavbar();
-initHamburger();
-initRipple();
-initCounters();
-/* ============================================================ */
-
-// ── 1. SCROLL REVEAL — nuevos selectores ─────────────────────
-// El initScrollReveal() original ya cubre .gallery-card,
-// .testimonial-card, .event-card, .poet-card, .analytics-card.
-// Añadimos los bloques nuevos de home.html.
-
+// ===== SCROLL REVEAL EXTRA =====
 function initScrollRevealExtra() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -468,13 +436,7 @@ function initScrollRevealExtra() {
   });
 }
 
-// ── 2. COUNTER — incluye .stat-block .stat-number ────────────
-// El animateCounters() original busca '.stat-number, .stat-num, .a-num'
-// que ya cubre .stat-block .stat-number.
-// Solo necesitamos que initCounters() también observe .stats-section
-// cuando esté dentro de #page1 (ya lo hace por selector genérico ✓).
-// Añadimos observación de .stat-block individuales como fallback:
-
+// ===== STAT BLOCK COUNTERS =====
 function initStatBlockCounters() {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -489,30 +451,14 @@ function initStatBlockCounters() {
   document.querySelectorAll('.stat-block').forEach(el => observer.observe(el));
 }
 
-// ── 3. NAV ACTIVE — por data-page ────────────────────────────
-// El showPage() original ya actualiza .active por onclick string.
-// Añadimos soporte para data-page como alternativa más limpia:
-
+// ===== NAV ACTIVE por data-page =====
 function updateNavActive(pageId) {
   document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
     a.classList.toggle('active', a.dataset.page === pageId);
   });
 }
 
-// Parchear showPage para que también llame a updateNavActive
-const _showPageOriginal = showPage;
-window.showPage = function(id) {
-  _showPageOriginal(id);
-  updateNavActive(id);
-  // Disparar evento para que el cursor re-aplique hover listeners
-  document.dispatchEvent(new CustomEvent('pageChanged'));
-  // Re-lanzar extras de scroll reveal en la nueva página
-  setTimeout(initScrollRevealExtra, 150);
-};
-
-// ── 4. KEYBOARD NAV — logo y footer logo ─────────────────────
-// Los logos tienen tabindex="0", necesitan responder a Enter/Space
-
+// ===== KEYBOARD NAV =====
 function initKeyboardNav() {
   document.querySelectorAll('[tabindex="0"][onclick], [tabindex="0"][role="button"]')
     .forEach(el => {
@@ -527,10 +473,7 @@ function initKeyboardNav() {
     });
 }
 
-// ── 5. GALLERY CARD — click abre modal ───────────────────────
-// Las gallery-card de home.html no tenían onclick.
-// Al hacer click abrimos el modal genérico (sin datos de evento).
-
+// ===== GALLERY CARDS =====
 function initGalleryCards() {
   document.querySelectorAll('.gallery-card').forEach(card => {
     if (card._galleryBound) return;
@@ -547,18 +490,12 @@ function initGalleryCards() {
   });
 }
 
-// ── 6. FILTER TAGS — re-init al cambiar de página ────────────
-// initFilterTags() ya existe pero solo se llama una vez en INIT.
-// Al navegar a page3 los botones ya están en el DOM, pero
-// si se re-renderizan necesitamos re-bindear.
-// Solución: delegación de eventos (reemplaza el forEach original).
-
+// ===== FILTER TAGS DELEGATED =====
 function initFilterTagsDelegated() {
   document.addEventListener('click', e => {
     const btn = e.target.closest('.filter-tag');
     if (!btn) return;
 
-    // Solo actuar si estamos en page3
     const page3 = document.getElementById('page3');
     if (!page3 || !page3.classList.contains('active')) return;
 
@@ -579,12 +516,28 @@ function initFilterTagsDelegated() {
   });
 }
 
-// ── INIT PARCHE ───────────────────────────────────────────────
+// ===== PATCH showPage =====
+const _showPageOriginal = showPage;
+window.showPage = function(id) {
+  _showPageOriginal(id);
+  updateNavActive(id);
+  document.dispatchEvent(new CustomEvent('pageChanged'));
+  setTimeout(initScrollRevealExtra, 150);
+};
+
+// ===== INIT =====
+createParticles();
+renderCalendar();
+initFilterTags();
+initScrollReveal();
+initCursor();        // ✅ ahora sí existe como función
+initNavbar();
+initHamburger();
+initRipple();
+initCounters();
 initScrollRevealExtra();
 initStatBlockCounters();
 initKeyboardNav();
 initGalleryCards();
 initFilterTagsDelegated();
-
-// Marcar page1 como activa en el nav al cargar
 updateNavActive('page1');
