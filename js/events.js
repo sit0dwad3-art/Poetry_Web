@@ -8,7 +8,7 @@
 ================================================ */
 
 // ── CONFIGURACIÓN EmailJS ──────────────────────
-const EMAILJS_SERVICE_ID  = 'service_vvh6361';   // ✅ tu service ID real
+const EMAILJS_SERVICE_ID  = 'service_vvh636l';   // ✅ tu service ID real
 const EMAILJS_TEMPLATE_ID = 'template_3v4zys5';  // ✅ tu template ID real
 const EMAILJS_PUBLIC_KEY  = 'bVjJxu_sQ9e_LWox_';      // ⚠️ reemplaza con tu Public Key
 
