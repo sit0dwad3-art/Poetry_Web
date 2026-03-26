@@ -1,147 +1,912 @@
 <!-- ========== PAGE 3: COMMUNITY ========== -->
 <div id="page3" class="page">
 
-  <!-- ── HERO ── -->
+  <!-- ══════════════════════════════════════
+       HERO — Social proof desde el primer pixel
+  ══════════════════════════════════════ -->
   <header class="community-hero" aria-label="Cabecera comunidad">
     <p class="section-eyebrow">✦ Voces reales ✦</p>
     <h1>La <span>comunidad</span> habla</h1>
-    <p>Vivencias reales de personas que estuvieron ahí.<br>Cada palabra, un recuerdo compartido.</p>
+    <p class="community-hero-sub">
+      Vivencias reales de personas que estuvieron ahí.<br>
+      Cada palabra, un recuerdo compartido.
+    </p>
+
+    <!-- STATS — Social proof numérico -->
+    <div class="community-stats" aria-label="Estadísticas de la comunidad">
+      <div class="stat-item">
+        <span class="stat-number" data-target="400">0</span><span class="stat-plus">+</span>
+        <span class="stat-label">asistentes</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true">✦</div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="18">0</span>
+        <span class="stat-label">eventos</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true">✦</div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="6">0</span>
+        <span class="stat-label">ciudades</span>
+      </div>
+    </div>
   </header>
 
   <div class="community-container">
 
-    <!-- ── WRITE ── -->
-    <section class="write-section" aria-label="Comparte tu experiencia">
-      <h3>✍️ Comparte tu experiencia</h3>
-      <div class="write-form">
-        <div class="form-row">
-          <input
-            class="form-input"
-            type="text"
-            placeholder="Tu nombre (o anónimo)"
-            aria-label="Tu nombre"
-          />
-          <input
-            class="form-input"
-            type="text"
-            placeholder="¿A qué evento asististe?"
-            aria-label="Evento al que asististe"
-          />
-        </div>
-        <textarea
-          class="form-textarea"
-          rows="4"
-          placeholder="Cuéntanos cómo fue... un momento, una sensación, algo que te llevaste a casa..."
-          aria-label="Tu experiencia"
-        ></textarea>
+    <!-- ══════════════════════════════════════
+         TRUST BAR — Por qué compartir
+    ══════════════════════════════════════ -->
+    <div class="trust-bar" aria-label="Por qué compartir tu experiencia">
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">🔒</span>
+        <span>Tu privacidad, respetada</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">✍️</span>
+        <span>Puedes publicar como anónimo</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon" aria-hidden="true">🌿</span>
+        <span>Cada voz enriquece la comunidad</span>
+      </div>
+    </div>
 
-        <div class="emotion-section">
-          <p class="emotion-label">¿Cómo te sentiste?</p>
-          <div class="emotion-tags" id="emotionTags" role="group" aria-label="Etiquetas de emoción">
-            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">💫 Inspirado/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🥹 Emocionado/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🔥 Apasionado/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🌊 Reflexivo/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🌙 Nostálgico/a</button>
-            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">✨ Transformado/a</button>
+    <!-- ══════════════════════════════════════
+         WRITE SECTION — Formulario premium
+    ══════════════════════════════════════ -->
+    <section class="write-section" aria-label="Comparte tu experiencia">
+
+      <div class="write-section-header">
+        <p class="section-eyebrow">✦ Tu turno ✦</p>
+        <h2>Comparte tu<br><em>experiencia</em></h2>
+        <p class="write-section-sub">
+          ¿Estuviste en una de nuestras noches? Tu historia merece ser contada.
+        </p>
+      </div>
+
+      <div class="write-form">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="inputNombre">Tu nombre</label>
+            <input
+              id="inputNombre"
+              class="form-input"
+              type="text"
+              placeholder="Tu nombre (o escribe Anónimo)"
+              aria-label="Tu nombre"
+              autocomplete="given-name"
+              maxlength="60"
+            />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="inputEvento">Evento</label>
+            <input
+              id="inputEvento"
+              class="form-input"
+              type="text"
+              placeholder="¿A qué evento asististe?"
+              aria-label="Evento al que asististe"
+              maxlength="80"
+            />
           </div>
         </div>
 
-        <button class="btn-submit" onclick="submitComment()" type="button">
-          Publicar experiencia →
+        <div class="form-field">
+          <label class="form-label" for="inputResena">Tu experiencia</label>
+          <textarea
+            id="inputResena"
+            class="form-textarea"
+            rows="4"
+            placeholder="Cuéntanos cómo fue... un momento, una sensación, algo que te llevaste a casa..."
+            aria-label="Tu experiencia"
+            maxlength="600"
+          ></textarea>
+          <span class="char-counter" id="charCounter">0 / 600</span>
+        </div>
+
+        <div class="emotion-section">
+          <p class="emotion-label">¿Cómo te sentiste? <span class="emotion-hint">(elige las que quieras)</span></p>
+          <div class="emotion-tags" id="emotionTags" role="group" aria-label="Etiquetas de emoción">
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🕯️ Fue íntimo y real</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🎙️ Sentí cada palabra</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">📖 Me llevé un verso</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🌿 Salí renovado/a</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">🌙 Nostálgico/a</button>
+            <button class="emotion-tag" onclick="toggleEmotion(this)" type="button">💬 Necesito contarlo</button>
+          </div>
+        </div>
+
+        <!-- Toast de feedback -->
+        <div id="formToast" class="form-toast" role="alert" aria-live="polite"></div>
+
+        <button class="btn-submit" onclick="submitComment()" type="button" aria-label="Publicar tu experiencia">
+          Publicar experiencia <span class="btn-arrow" aria-hidden="true">→</span>
         </button>
+
+        <p class="form-disclaimer">
+          Tu reseña será revisada antes de publicarse. Respetamos tu privacidad.
+        </p>
+
       </div>
     </section>
 
-    <!-- ── FILTER + WALL ── -->
+    <!-- ══════════════════════════════════════
+         TESTIMONIALS — Muro dinámico
+    ══════════════════════════════════════ -->
     <div class="testimonials-header">
-      <h3>Voces de la comunidad</h3>
+      <div class="testimonials-title-group">
+        <p class="section-eyebrow">✦ Lo que dicen ✦</p>
+        <h2>Voces de la<br><em>comunidad</em></h2>
+      </div>
       <div class="filter-tags" role="group" aria-label="Filtrar testimonios">
-        <button class="filter-tag active" type="button">Todos</button>
-        <button class="filter-tag" type="button">Amor</button>
-        <button class="filter-tag" type="button">Vida</button>
-        <button class="filter-tag" type="button">Noche</button>
-        <button class="filter-tag" type="button">Identidad</button>
+        <button class="filter-tag active" type="button" onclick="filterResenas('todos')">Todos</button>
+        <button class="filter-tag" type="button" onclick="filterResenas('verso')">Verso</button>
+        <button class="filter-tag" type="button" onclick="filterResenas('íntimo')">Íntimo</button>
+        <button class="filter-tag" type="button" onclick="filterResenas('renovado')">Renovado</button>
+        <button class="filter-tag" type="button" onclick="filterResenas('palabra')">Palabra</button>
       </div>
     </div>
 
-    <div class="testimonials-masonry" role="list" aria-label="Testimonios de la comunidad">
-
-      <article class="testimonial-card" role="listitem">
-        <div class="t-emotion" aria-hidden="true">💫</div>
-        <p class="t-text">"Llegué sin saber qué esperar y salí con algo que no sé nombrar todavía. Como si alguien hubiera puesto palabras a lo que yo llevaba años callando."</p>
-        <div class="t-author">— Marta G.</div>
-        <div class="t-event">Noche de Versos · Madrid</div>
-        <div class="t-tags">
-          <span class="tag tag-amor">Amor</span>
-          <span class="tag tag-vida">Vida</span>
-        </div>
-      </article>
-
-      <article class="testimonial-card" role="listitem">
-        <div class="t-emotion" aria-hidden="true">🔥</div>
-        <p class="t-text">"Cada verso era un golpe suave en el pecho. Me fui a casa y escribí por primera vez en años."</p>
-        <div class="t-author">— Anónimo</div>
-        <div class="t-event">Palabras de Fuego · Barcelona</div>
-        <div class="t-tags">
-          <span class="tag tag-noche">Pasión</span>
-        </div>
-      </article>
-
-      <article class="testimonial-card" role="listitem">
-        <div class="t-emotion" aria-hidden="true">🌊</div>
-        <p class="t-text">"Fui con mi madre. Nos miramos en un momento y las dos teníamos los ojos brillantes. Eso no tiene precio. Eso es lo que hace la poesía."</p>
-        <div class="t-author">— Laura P.</div>
-        <div class="t-event">Mar de Silencios · Valencia</div>
-        <div class="t-tags">
-          <span class="tag tag-silencio">Silencio</span>
-          <span class="tag tag-amor">Amor</span>
-        </div>
-      </article>
-
-      <article class="testimonial-card" role="listitem">
-        <div class="t-emotion" aria-hidden="true">✨</div>
-        <p class="t-text">"No soy de poesía, me llevó un amigo. Ahora soy de poesía."</p>
-        <div class="t-author">— Rodrigo M.</div>
-        <div class="t-event">Constelaciones · Sevilla</div>
-        <div class="t-tags">
-          <span class="tag tag-vida">Vida</span>
-        </div>
-      </article>
-
-      <article class="testimonial-card" role="listitem">
-        <div class="t-emotion" aria-hidden="true">🥹</div>
-        <p class="t-text">"Hay una forma de leer que te hace sentir que el poema te está mirando a ti. Eso es lo que pasa en estos eventos. Una experiencia que no se olvida."</p>
-        <div class="t-author">— Carmen V.</div>
-        <div class="t-event">Raíces · Bilbao</div>
-        <div class="t-tags">
-          <span class="tag tag-tierra">Tierra</span>
-          <span class="tag tag-vida">Memoria</span>
-        </div>
-      </article>
-
-      <article class="testimonial-card" role="listitem">
-        <div class="t-emotion" aria-hidden="true">🌙</div>
-        <p class="t-text">"Salí caminando despacio. No quería que se acabara la noche. Esas palabras me acompañaron semanas."</p>
-        <div class="t-author">— Iñigo A.</div>
-        <div class="t-event">Entre Luces · Granada</div>
-        <div class="t-tags">
-          <span class="tag tag-noche">Noche</span>
-        </div>
-      </article>
-
+    <!-- Muro dinámico — Supabase lo rellena; las cards de abajo son fallback visual -->
+    <div
+      class="testimonials-masonry"
+      id="resenasContainer"
+      role="list"
+      aria-label="Testimonios de la comunidad"
+      aria-live="polite"
+    >
+      <!-- Skeleton loader visible mientras carga -->
+      <div class="skeleton-card" aria-hidden="true"></div>
+      <div class="skeleton-card" aria-hidden="true"></div>
+      <div class="skeleton-card" aria-hidden="true"></div>
     </div>
 
-    <!-- ── CTA COMUNIDAD ── -->
+    <!-- ══════════════════════════════════════
+         QUOTE BREAK — Separador editorial
+    ══════════════════════════════════════ -->
+    <div class="community-quote-break" aria-hidden="true">
+      <span class="quote-ornament">✦</span>
+      <blockquote>
+        "La poesía no se lee.<br>Se <em>recuerda</em>."
+      </blockquote>
+      <span class="quote-ornament">✦</span>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         CTA — Conversión final
+    ══════════════════════════════════════ -->
     <section class="community-cta" aria-label="Únete a la comunidad">
       <p class="section-eyebrow">✦ Sé parte de algo real ✦</p>
       <h2>¿Quieres estar<br><em>en la próxima noche</em>?</h2>
-      <p>Plazas limitadas. Reserva antes de que se agoten.</p>
+      <p class="cta-sub">
+        Plazas limitadas · Experiencia única · Sin repetición posible
+      </p>
       <div class="hero-cta-group">
-        <button class="btn-primary" onclick="showPage('page2')">Ver próximos eventos</button>
-        <button class="btn-outline" onclick="openModal(null)">Reservar plaza ahora</button>
+        <button class="btn-primary" onclick="showPage('page2')" type="button">
+          Ver próximos eventos
+        </button>
+        <button class="btn-outline" onclick="openModal(null)" type="button">
+          Reservar plaza ahora
+        </button>
       </div>
+      <p class="cta-urgency">
+        🔥 Las últimas 3 veladas se agotaron en menos de 48h
+      </p>
     </section>
 
-  </div>
-</div>
+  </div><!-- /community-container -->
+</div><!-- /page3 -->
+
+<!-- ══════════════════════════════════════
+     CSS EXCLUSIVO COMMUNITY
+══════════════════════════════════════ -->
+<style>
+
+/* ── HERO ── */
+.community-hero {
+  text-align: center;
+  padding: 100px 5% 60px;
+  background: var(--cream, #f7f3ec);
+  position: relative;
+  overflow: hidden;
+}
+
+.community-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.community-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 300;
+  color: var(--ink, #2a2a2a);
+  margin: 12px 0 16px;
+  line-height: 1.1;
+}
+
+.community-hero h1 span {
+  color: var(--gold, #c9a84c);
+  font-style: italic;
+}
+
+.community-hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--ink-light, #4a4a4a);
+  line-height: 1.8;
+  max-width: 480px;
+  margin: 0 auto 48px;
+}
+
+/* STATS */
+.community-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(42,42,42,0.08);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 300;
+  color: var(--ink, #2a2a2a);
+  line-height: 1;
+}
+
+.stat-plus {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--gold, #c9a84c);
+  line-height: 1;
+  vertical-align: super;
+}
+
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink-light, #4a4a4a);
+  opacity: 0.6;
+}
+
+.stat-divider {
+  color: var(--gold, #c9a84c);
+  opacity: 0.4;
+  font-size: 0.7rem;
+}
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 20px 5%;
+  background: var(--ink, #2a2a2a);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: rgba(247,243,236,0.7);
+}
+
+.trust-icon { font-size: 0.9rem; }
+
+/* ── COMMUNITY CONTAINER ── */
+.community-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* ── WRITE SECTION ── */
+.write-section {
+  padding: 80px 0 60px;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 64px;
+  align-items: start;
+  border-bottom: 1px solid rgba(42,42,42,0.08);
+}
+
+.write-section-header {
+  position: sticky;
+  top: 100px;
+}
+
+.write-section-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 300;
+  color: var(--ink, #2a2a2a);
+  line-height: 1.2;
+  margin: 10px 0 16px;
+}
+
+.write-section-header h2 em {
+  color: var(--gold, #c9a84c);
+  font-style: italic;
+}
+
+.write-section-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--ink-light, #4a4a4a);
+  line-height: 1.7;
+  opacity: 0.8;
+}
+
+/* FORM */
+.write-form { display: flex; flex-direction: column; gap: 20px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+
+.form-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink, #2a2a2a);
+  opacity: 0.6;
+}
+
+.form-input,
+.form-textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--ink, #2a2a2a);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(42,42,42,0.2);
+  padding: 10px 0;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  resize: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(42,42,42,0.35);
+  font-style: italic;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-bottom-color: var(--gold, #c9a84c);
+}
+
+.char-counter {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  color: rgba(42,42,42,0.35);
+  text-align: right;
+  margin-top: -12px;
+}
+
+/* EMOTIONS */
+.emotion-section { display: flex; flex-direction: column; gap: 12px; }
+
+.emotion-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink, #2a2a2a);
+  opacity: 0.6;
+}
+
+.emotion-hint {
+  font-size: 0.65rem;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.5;
+}
+
+.emotion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.emotion-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--ink, #2a2a2a);
+  background: transparent;
+  border: 1px solid rgba(42,42,42,0.18);
+  padding: 7px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+}
+
+.emotion-tag:hover {
+  border-color: var(--gold, #c9a84c);
+  color: var(--gold, #c9a84c);
+}
+
+.emotion-tag.active {
+  background: var(--ink, #2a2a2a);
+  border-color: var(--ink, #2a2a2a);
+  color: var(--cream, #f7f3ec);
+}
+
+/* TOAST */
+.form-toast {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.form-toast.show { display: block; }
+.form-toast.success { background: rgba(34,139,34,0.08); color: #2d6a2d; border-left: 2px solid #2d6a2d; }
+.form-toast.error   { background: rgba(180,40,40,0.07); color: #8b2020; border-left: 2px solid #8b2020; }
+
+/* SUBMIT */
+.btn-submit {
+  align-self: flex-start;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cream, #f7f3ec);
+  background: var(--ink, #2a2a2a);
+  border: none;
+  padding: 16px 36px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: var(--gold, #c9a84c);
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.btn-submit:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.form-disclaimer {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(42,42,42,0.4);
+  font-weight: 300;
+  font-style: italic;
+  margin-top: -8px;
+}
+
+/* ── TESTIMONIALS HEADER ── */
+.testimonials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 72px 0 40px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.testimonials-title-group h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  color: var(--ink, #2a2a2a);
+  line-height: 1.2;
+  margin: 8px 0 0;
+}
+
+.testimonials-title-group h2 em {
+  color: var(--gold, #c9a84c);
+  font-style: italic;
+}
+
+.filter-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink, #2a2a2a);
+  background: transparent;
+  border: 1px solid rgba(42,42,42,0.15);
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-tag:hover,
+.filter-tag.active {
+  background: var(--ink, #2a2a2a);
+  border-color: var(--ink, #2a2a2a);
+  color: var(--cream, #f7f3ec);
+}
+
+/* ── MASONRY GRID ── */
+.testimonials-masonry {
+  columns: 3;
+  column-gap: 24px;
+  padding-bottom: 72px;
+}
+
+/* ── TESTIMONIAL CARD ── */
+.testimonial-card {
+  break-inside: avoid;
+  background: #fff;
+  border: 1px solid rgba(42,42,42,0.07);
+  padding: 28px;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: -10px; right: 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 7rem;
+  color: rgba(201,168,76,0.06);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(42,42,42,0.08);
+}
+
+/* Header de la card (avatar + meta) */
+.testimonial-header,
+.t-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.testimonial-avatar,
+.t-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--ink, #2a2a2a);
+  color: var(--cream, #f7f3ec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.testimonial-meta,
+.t-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.t-author,
+.testimonial-author {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--ink, #2a2a2a);
+}
+
+.t-event,
+.testimonial-event {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: var(--gold, #c9a84c);
+  letter-spacing: 0.5px;
+}
+
+.testimonial-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  color: rgba(42,42,42,0.35);
+  letter-spacing: 1px;
+}
+
+/* Emoción grande */
+.t-emotion {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Texto */
+.t-text,
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink, #2a2a2a);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* Tags */
+.t-tags,
+.testimonial-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(42,42,42,0.05);
+  color: var(--ink-light, #4a4a4a);
+}
+
+/* ── SKELETON LOADER ── */
+.skeleton-card {
+  break-inside: avoid;
+  height: 180px;
+  margin-bottom: 24px;
+  background: linear-gradient(90deg,
+    rgba(42,42,42,0.04) 25%,
+    rgba(42,42,42,0.08) 50%,
+    rgba(42,42,42,0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  border-radius: 2px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── ESTADOS VACÍOS ── */
+.resenas-loading,
+.resenas-empty {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--ink-light, #4a4a4a);
+  padding: 60px 20px;
+  opacity: 0.6;
+  column-span: all;
+}
+
+/* ── QUOTE BREAK ── */
+.community-quote-break {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 48px 0;
+  border-top: 1px solid rgba(42,42,42,0.08);
+  border-bottom: 1px solid rgba(42,42,42,0.08);
+  margin-bottom: 72px;
+}
+
+.community-quote-break blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink, #2a2a2a);
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.community-quote-break blockquote em {
+  color: var(--gold, #c9a84c);
+}
+
+.quote-ornament {
+  color: var(--gold, #c9a84c);
+  font-size: 0.8rem;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ── CTA ── */
+.community-cta {
+  text-align: center;
+  padding: 80px 0 100px;
+}
+
+.community-cta h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--ink, #2a2a2a);
+  line-height: 1.2;
+  margin: 12px 0 16px;
+}
+
+.community-cta h2 em {
+  color: var(--gold, #c9a84c);
+  font-style: italic;
+}
+
+.cta-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-light, #4a4a4a);
+  opacity: 0.5;
+  margin-bottom: 36px;
+}
+
+.cta-urgency {
+  margin-top: 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--ink-light, #4a4a4a);
+  opacity: 0.6;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .write-section {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .write-section-header {
+    position: static;
+  }
+  .testimonials-masonry {
+    columns: 2;
+  }
+  .testimonials-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .community-stats { gap: 24px; }
+  .trust-bar       { gap: 16px; flex-direction: column; align-items: center; }
+  .form-row        { grid-template-columns: 1fr; }
+  .testimonials-masonry { columns: 1; }
+  .community-quote-break { flex-direction: column; text-align: center; }
+  .btn-submit      { width: 100%; justify-content: center; }
+}
+
+</style>
+
+<!-- ══════════════════════════════════════
+     JS INLINE: contador animado + char counter
+══════════════════════════════════════ -->
+<script>
+/* ── CONTADOR ANIMADO DE STATS ── */
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat-number[data-target]');
+  counters.forEach(el => {
+    const target   = parseInt(el.dataset.target, 10);
+    const duration = 1800;
+    const step     = Math.ceil(target / (duration / 16));
+    let current    = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = current;
+    }, 16);
+  });
+}
+
+/* Lanzar cuando page3 sea visible */
+const _statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      _statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const stats = document.querySelector('.community-stats');
+  if (stats) _statsObserver.observe(stats);
+
+  /* ── CHAR COUNTER ── */
+  const textarea = document.getElementById('inputResena');
+  const counter  = document.getElementById('charCounter');
+  if (textarea && counter) {
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length;
+      counter.textContent = `${len} / 600`;
+      counter.style.color = len > 550 ? '#b84040' : 'rgba(42,42,42,0.35)';
+    });
+  }
+
+  /* ── FILTER TAG ACTIVE STATE ── */
+  document.querySelectorAll('.filter-tag').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+});
+
+/* ── TOGGLE EMOTION ── */
+function toggleEmotion(btn) {
+  btn.classList.toggle('active');
+}
+
+/* ── SHOW TOAST ── */
+function showToast(msg, type = 'success') {
+  const toast = document.getElementById('formToast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.className   = `form-toast show ${type}`;
+  setTimeout(() => { toast.className = 'form-toast'; }, 5000);
+}
+</script>

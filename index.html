@@ -81,7 +81,7 @@
 
 <body>
 
-  <!-- ✅ CURSOR — primero en el body, antes de todo -->
+  <!-- ✅ CURSOR -->
   <div class="cursor"          aria-hidden="true"></div>
   <div class="cursor-follower" aria-hidden="true"></div>
 
@@ -155,6 +155,7 @@
 
         await loadScript('js/events.js');
         await loadScript('js/main.js');
+        await loadScript('js/community.js');   /* ← Supabase integration */
 
         if (typeof showPage === 'function') showPage('page1');
 
