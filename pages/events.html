@@ -30,53 +30,61 @@
     <section class="upcoming-events" aria-label="Lista de próximos eventos">
       <h3>Próximas veladas</h3>
 
+      <!-- EVENTO 1: 27 marzo — Pamplona -->
       <article class="event-card"
-        data-nombre="El arte de sobrevivir a los inviernos — Primavera"
-        data-fecha="15/03/2026"
-        data-hora="20:30"
-        data-lugar="Biblioteca de Navarra, Pamplona">
-        <div class="event-date-box" aria-label="20 de marzo">
-          <div class="day">15</div>
+        data-nombre="Presentación — El arte de sobrevivir a los inviernos"
+        data-fecha="27/03/2026"
+        data-hora="19:00"
+        data-lugar="Biblioteca Pública San Francisco, Pamplona">
+        <div class="event-date-box" aria-label="27 de marzo">
+          <div class="day">27</div>
           <div class="month">Mar</div>
         </div>
         <div class="event-info">
-          <h4>El arte de sobrevivir a los inviernos — Primavera</h4>
-          <p>📍 Biblioteca de Navarra El Rincón · Madrid · 20:30h</p>
+          <h4>Presentación — El arte de sobrevivir a los inviernos</h4>
+          <p>📍 Biblioteca Pública San Francisco · Pamplona · 19:00h</p>
+          <p class="event-extra">Con Alejandro Arzayus García &amp; Lazaro Dayron Corvea Cuní</p>
           <div class="event-tags">
-            <span class="tag tag-amor">Amor</span>
-            <span class="tag tag-vida">Vida</span>
-            <span class="tag tag-noche">Noche</span>
+            <span class="tag tag-amor">Poesía</span>
+            <span class="tag tag-vida">Presentación</span>
+            <span class="tag tag-noche">Bilingüe</span>
           </div>
         </div>
         <div class="event-card-actions">
-          <span class="event-spots">🎟 Quedan 8 plazas</span>
-          <button class="btn-register" onclick="openModal(this)" aria-label="Apuntarme a El arte de sobrevivir a los inviernos">Apuntarme</button>
+          <span class="event-spots">🎟 Entrada libre</span>
+          <button class="btn-register" onclick="openModal(this)"
+            aria-label="Apuntarme a Presentación 27 marzo">Apuntarme</button>
         </div>
       </article>
 
+      <!-- EVENTO 2: 28 marzo — Donostia -->
       <article class="event-card"
-        data-nombre="Palabras que Arden"
+        data-nombre="Presentación del libro — El arte de sobrevivir a los inviernos"
         data-fecha="28/03/2026"
-        data-hora="19:00"
-        data-lugar="Teatro La Fragua, Barcelona">
+        data-hora="17:30"
+        data-lugar="Ateneo Casilda Hernaez, Plz. Ferrerías 4 bajo A, Donostia">
         <div class="event-date-box" aria-label="28 de marzo">
           <div class="day">28</div>
           <div class="month">Mar</div>
         </div>
         <div class="event-info">
-          <h4>Palabras que Arden</h4>
-          <p>📍 Teatro La Fragua · Barcelona · 19:00h</p>
+          <h4>Presentación del libro — El arte de sobrevivir a los inviernos</h4>
+          <p>📍 Ateneo Casilda Hernaez · Plz. Ferrerías, 4 bajo A · Donostia · 17:30h</p>
+          <p class="event-extra">Alejandro Arzayus García · Poesía Local Pamplona</p>
           <div class="event-tags">
-            <span class="tag tag-tierra">Identidad</span>
-            <span class="tag tag-noche">Pasión</span>
+            <span class="tag tag-amor">Poesía</span>
+            <span class="tag tag-tierra">Local</span>
+            <span class="tag tag-vida">Libro</span>
           </div>
         </div>
         <div class="event-card-actions">
-          <span class="event-spots">🎟 Quedan 14 plazas</span>
-          <button class="btn-register" onclick="openModal(this)" aria-label="Apuntarme a Palabras que Arden">Apuntarme</button>
+          <span class="event-spots">🎟 Entrada libre</span>
+          <button class="btn-register" onclick="openModal(this)"
+            aria-label="Apuntarme a Presentación 28 marzo">Apuntarme</button>
         </div>
       </article>
 
+      <!-- EVENTO 3: 12 abril — Valencia -->
       <article class="event-card"
         data-nombre="Silencio Habitado"
         data-fecha="12/04/2026"
@@ -96,10 +104,12 @@
         </div>
         <div class="event-card-actions">
           <span class="event-spots">🎟 Quedan 5 plazas</span>
-          <button class="btn-register" onclick="openModal(this)" aria-label="Apuntarme a Silencio Habitado">Apuntarme</button>
+          <button class="btn-register" onclick="openModal(this)"
+            aria-label="Apuntarme a Silencio Habitado">Apuntarme</button>
         </div>
       </article>
 
+      <!-- EVENTO 4: 3 mayo — Sevilla -->
       <article class="event-card"
         data-nombre="Raíces — Edición Especial"
         data-fecha="03/05/2026"
@@ -119,7 +129,8 @@
         </div>
         <div class="event-card-actions">
           <span class="event-spots">🎟 Quedan 20 plazas</span>
-          <button class="btn-register" onclick="openModal(this)" aria-label="Apuntarme a Raíces">Apuntarme</button>
+          <button class="btn-register" onclick="openModal(this)"
+            aria-label="Apuntarme a Raíces">Apuntarme</button>
         </div>
       </article>
 
@@ -350,7 +361,6 @@ const GALLERY_PHOTOS = [
   { src: '/leolo-edicion/assets/Images/evento1-foto3.jpg', alt: 'Poeta firmando dedicatorias' },
   { src: '/leolo-edicion/assets/Images/evento1-foto4.jpg', alt: 'Momento de cercanía' }
 ];
-
 
 let lbIndex = 0;
 

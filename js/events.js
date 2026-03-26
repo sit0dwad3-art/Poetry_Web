@@ -9,6 +9,15 @@ const EMAILJS_PUBLIC_KEY  = 'bVjJxu_sQ9e_LWox_';
 
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
+// ── FECHAS DEL CALENDARIO ─────────────────────
+// Actualizado con eventos reales de los flyers
+const EVENT_DATES = {
+  '2026-03-27': 'Biblioteca Pública San Francisco · Pamplona · 19:00h',
+  '2026-03-28': 'Ateneo Casilda Hernaez · Donostia · 17:30h',
+  '2026-04-12': 'Galería Nomad · Valencia · 21:00h',
+  '2026-05-03': 'Jardín Botánico · Sevilla · 18:30h'
+};
+
 let eventoActual = { nombre: '', fecha: '', hora: '', lugar: '' };
 
 // ── ABRIR MODAL ────────────────────────────────
@@ -37,17 +46,14 @@ function openModal(btnEl) {
     if (lugarEl)  lugarEl.textContent  = '';
   }
 
-  // Limpiar estado previo
   const msgEl = document.getElementById('modal-message');
   if (msgEl) { msgEl.textContent = ''; msgEl.style.display = 'none'; }
 
-  // ✅ FIX: ocultar botones de calendario al abrir (estado limpio)
   const calLinks = document.getElementById('modal-calendar-links');
   if (calLinks) calLinks.style.display = 'none';
 
   document.getElementById('reg-form')?.reset();
 
-  // ✅ FIX: asegurarse de que el formulario vuelve a ser visible
   const regForm = document.getElementById('reg-form');
   if (regForm) regForm.style.display = '';
 
@@ -82,7 +88,6 @@ function closeModal() {
   const btn = document.getElementById('reg-submit-btn');
   if (btn) { btn.disabled = false; btn.textContent = 'Confirmar plaza →'; }
 
-  // Ocultar calendario al cerrar
   const calLinks = document.getElementById('modal-calendar-links');
   if (calLinks) calLinks.style.display = 'none';
 }
@@ -167,8 +172,6 @@ function generarQuizasLink() {
 }
 
 // ── MOSTRAR BOTONES DE CALENDARIO ─────────────
-// ✅ FIX PRINCIPAL: esta función asigna los hrefs
-//    Y hace visible el bloque #modal-calendar-links
 function mostrarBotonesCalendario() {
   const googleBtn = document.getElementById('cal-google-btn');
   const icsBtn    = document.getElementById('cal-ics-btn');
@@ -187,7 +190,6 @@ function mostrarBotonesCalendario() {
       `Descargar "${eventoActual.nombre}" para Apple/Outlook`);
   }
 
-  // ✅ Mostrar el bloque (estaba display:none en el HTML)
   if (calLinks) calLinks.style.display = 'block';
 }
 
@@ -249,20 +251,10 @@ function submitRegistration(e) {
   emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
     .then(function(response) {
       console.log('✅ Email enviado:', response.status, response.text);
-
-      // Mostrar mensaje de éxito
       showModalMessage(`¡Listo, ${nombre}! Revisa tu correo 📩`, 'success');
-
-      // Limpiar formulario
       document.getElementById('reg-form')?.reset();
-
-      // ✅ FIX: mostrar botones de calendario AQUÍ, después del éxito
       mostrarBotonesCalendario();
-
-      // Decrementar plazas
       decrementarPlazas();
-
-      // ✅ FIX: cerrar modal después de 4s (más tiempo para ver los botones)
       setTimeout(() => closeModal(), 4000);
     })
     .catch(function(error) {
@@ -319,7 +311,7 @@ function initFocusTrap() {
     if (e.key !== 'Tab' || !modal.classList.contains('active')) return;
     const focusable = Array.from(modal.querySelectorAll(
       'button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
-      'textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+      'textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])' 
     )).filter(el => el.offsetParent !== null);
     if (focusable.length === 0) return;
     const first = focusable[0];
@@ -346,7 +338,6 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
 
-// Init focus trap cuando el modal esté en el DOM
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initFocusTrap, 500);
 });
